@@ -1,24 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Nile.POS
 {
+    /// <summary>
+    /// Represents a customer's order.
+    /// </summary>
     public class Order
     {
-        private DateTime _orderDate;
-        private List<LineItem> _lineItems;
 
+        /// <summary>
+        /// The total price of all lineitems in the order.
+        /// </summary>
         public decimal TotalPrice
         {
             get
             {
                 decimal temp = 0;
-                if (_lineItems?.Count > 0)
+                if (LineItems?.Count > 0)
                 {
 
-                    foreach (LineItem l in _lineItems)
+                    foreach (LineItem l in LineItems)
                     {
                         temp += l.TotalPrice;
                     }
@@ -27,49 +29,45 @@ namespace Nile.POS
             }
         }
 
+        /// <summary>
+        /// The date on which the order was made.
+        /// </summary>
         public DateTime OrderDate
         {
-            get
-            {
-                return _orderDate;
-            }
-
-            set
-            {
-                _orderDate = value;
-            }
+            get; set;
         }
 
+        /// <summary>
+        /// The list of LineItems in the order.
+        /// </summary>
         public List<LineItem> LineItems
         {
-            get
-            {
-                return _lineItems;
-            }
-
-            set
-            {
-                _lineItems = value;
-            }
+            get; set;
         }
 
-        public Order(params LineItem[] lineItems)
-        {
-
-            OrderDate = DateTime.Now;
-            _lineItems.AddRange(lineItems);
+        /// <summary>
+        /// Represents a customer's order.
+        /// </summary>
+        /// <param name="lineItems">Any number of LineItems for the order.</param>
+        public Order(params LineItem[] lineItems) : this()
+        {            
+            LineItems.AddRange(lineItems);
         }
 
-        public Order(List<LineItem> lineItems)
+        /// <summary>
+        /// Represents a customer's order.
+        /// </summary>
+        /// <param name="lineItems">A list of LineItems for the order </param>
+        public Order(List<LineItem> lineItems) : this()
         {
-
-            OrderDate = DateTime.Now;
             LineItems = lineItems;
         }
 
+        /// <summary>
+        /// Represents a customer's order.
+        /// </summary>
         public Order()
         {
-
             OrderDate = DateTime.Now;
             LineItems = new List<LineItem>();
         }

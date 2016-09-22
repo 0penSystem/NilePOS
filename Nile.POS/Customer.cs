@@ -1,72 +1,58 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Nile.POS
+﻿namespace Nile.POS
 {
+    /// <summary>
+    /// Represents a Customer in the Nile POS system.
+    /// </summary>
     public class Customer
     {
         private static int _lastID = 0;
-        private int _id;
-        private string _firstName;
-        private string _lastName;
-        private Order _currentOrder;
 
+
+        /// <summary>
+        /// Identification number of the customer
+        /// </summary>
         public int ID
         {
-            get
-            {
-                return _id;
-            }
+            get; private set;
         }
 
+        /// <summary>
+        /// The customer's first name.
+        /// </summary>
         public string FirstName
         {
-            get
-            {
-                return _firstName;
-            }
-
-            set
-            {
-                _firstName = value;
-            }
+            get; private set;
         }
 
+        /// <summary>
+        /// The customer's last name.
+        /// </summary>
         public string LastName
         {
-            get
-            {
-                return _lastName;
-            }
-
-            set
-            {
-                _lastName = value;
-            }
+            get; private set;
         }
 
+        /// <summary>
+        /// The customer's current order.
+        /// </summary>
         public Order CurrentOrder
         {
-            get
-            {
-                return _currentOrder;
-            }
-            set
-            {
-                _currentOrder = value;
-            }
+            get; set;
         }
 
 
+        /// <summary>
+        /// Represents a Customer in the Nile POS system.
+        /// </summary>
+        /// <param name="firstName">The customer's first name.</param>
+        /// <param name="lastName">The customer's last name.</param>
+        /// <param name="currentOrder">The customer's current order.</param>
         public Customer(string firstName, string lastName, Order currentOrder)
         {
-
-            _id = ++_lastID;
-            _firstName = firstName;
-            _lastName = lastName;
-            _currentOrder = currentOrder;
+            ID = ++_lastID;
+            FirstName = firstName;
+            LastName = lastName;
+            CurrentOrder = currentOrder;
         }
     }
 }
