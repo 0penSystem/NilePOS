@@ -15,10 +15,13 @@ namespace Nile.POS
             get
             {
                 decimal temp = 0;
-                if(_lineItems?.Count > 1)
-                foreach (LineItem l in _lineItems)
+                if (_lineItems?.Count > 0)
                 {
-                    temp += l.TotalPrice;
+
+                    foreach (LineItem l in _lineItems)
+                    {
+                        temp += l.TotalPrice;
+                    }
                 }
                 return temp;
             }
@@ -52,6 +55,8 @@ namespace Nile.POS
 
         public Order(params LineItem[] lineItems)
         {
+
+            OrderDate = DateTime.Now;
             _lineItems.AddRange(lineItems);
         }
 
@@ -61,7 +66,12 @@ namespace Nile.POS
             OrderDate = DateTime.Now;
             LineItems = lineItems;
         }
-        
 
+        public Order()
+        {
+
+            OrderDate = DateTime.Now;
+            LineItems = new List<LineItem>();
+        }
     }
 }

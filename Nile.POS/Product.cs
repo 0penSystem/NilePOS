@@ -3,50 +3,33 @@
     public class Product
     {
         private static int _lastID = 0;
-        private int _id;
-        private string _name;
-        private decimal _unitPrice;
-        private bool _discontinued;
 
         public Product(string name, decimal unitPrice, bool discontinued)
         {
-            _id = ++_lastID;
-            _name = name;
-            _unitPrice = unitPrice;
-            _discontinued = discontinued;
+            ID = ++_lastID;
+            Name = name;
+            UnitPrice = unitPrice;
+            Discontinued = discontinued;
         }
 
         public int ID
         {
-            get
-            {
-                return _id;
-            }
+            get; private set;
         }
 
         public string Name
         {
-            get
-            {
-                return _name;
-            }
-
+            get; private set;
         }
 
         public decimal UnitPrice
         {
-            get
-            {
-                return _unitPrice;
-            }
+            get; private set;
         }
 
         public bool Discontinued
         {
-            get
-            {
-                return _discontinued;
-            }
+            get; private set;
 
         }
     }
