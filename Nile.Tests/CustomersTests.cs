@@ -107,6 +107,7 @@ namespace Nile.Tests
             c.Add(third);
 
             var all = c.GetAll();
+            
 
             Assert.IsTrue(all.Contains(alice));
             Assert.IsTrue(all.Contains(bob));
