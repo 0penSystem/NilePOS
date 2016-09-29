@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Nile.POS
+namespace Nile.Data
 {
     public class Products
     {

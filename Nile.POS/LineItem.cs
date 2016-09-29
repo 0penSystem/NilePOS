@@ -1,4 +1,5 @@
-﻿namespace Nile.POS
+﻿using System;
+namespace Nile.Data
 {
     /// <summary>
     /// Represents a lineitem in the Nile POS system.
@@ -6,12 +7,29 @@
     public class LineItem
     {
 
+        Product _product;
+        int _quantity;
         /// <summary>
         /// The product inside the lineitem.
         /// </summary>
         public Product Product
         {
-            get; private set;
+            get
+            {
+                return _product;
+            }
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException("Product");
+                }
+                if (value.Discontinued)
+                {
+                    throw new ArgumentException("Discontinued Products cannot be used in a LineItem");
+                }
+                _product = value;
+            }
         }
 
         /// <summary>
@@ -19,7 +37,18 @@
         /// </summary>
         public int Quantity
         {
-            get; set;
+            get
+            {
+                return _quantity;
+            }
+            set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentException("Quantity must be greater than 0.");
+                }
+                _quantity = value;
+            }
         }
 
         /// <summary>
@@ -40,6 +69,7 @@
         /// <param name="quantity">Quantity of the product.</param>
         public LineItem(Product product, int quantity)
         {
+
             Quantity = quantity;
             Product = product;
         }

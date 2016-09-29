@@ -1,4 +1,4 @@
-﻿namespace Nile.POS
+﻿namespace Nile.Data
 {
 
     public class POS

@@ -1,4 +1,4 @@
-﻿namespace Nile.POS.Host
+﻿namespace Nile.Data.Host
 {
     class Program
     {

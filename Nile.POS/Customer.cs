@@ -1,4 +1,6 @@
-﻿namespace Nile.POS
+﻿using System;
+
+namespace Nile.Data
 {
     /// <summary>
     /// Represents a Customer in the Nile POS system.
@@ -6,8 +8,8 @@
     public class Customer
     {
         private static int _lastID = 0;
-
-
+        private string _fName, _lName;
+        
         /// <summary>
         /// Identification number of the customer
         /// </summary>
@@ -21,7 +23,14 @@
         /// </summary>
         public string FirstName
         {
-            get; private set;
+            get
+            {
+                return _fName ?? "";
+            }
+              set
+            {
+                _fName = value;
+            }
         }
 
         /// <summary>
@@ -29,7 +38,14 @@
         /// </summary>
         public string LastName
         {
-            get; private set;
+            get
+            {
+                return _lName ?? "";
+            }
+            set
+            {
+                _lName = value;
+            }
         }
 
         /// <summary>
@@ -37,7 +53,7 @@
         /// </summary>
         public Order CurrentOrder
         {
-            get; set;
+            get; private set;
         }
 
 
@@ -49,10 +65,18 @@
         /// <param name="currentOrder">The customer's current order.</param>
         public Customer(string firstName, string lastName, Order currentOrder)
         {
+            if (firstName == null || lastName == null)
+            {
+                throw new ArgumentNullException();
+            }
+            
             ID = ++_lastID;
             FirstName = firstName;
             LastName = lastName;
-            CurrentOrder = currentOrder;
+            CurrentOrder = currentOrder ?? new Order();
+
+
+
         }
     }
 }

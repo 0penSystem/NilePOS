@@ -51,9 +51,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Nile.POS\Nile.POS.csproj">
+    <ProjectReference Include="..\Nile.POS\Nile.Data.csproj">
       <Project>{7d11f22e-9ace-4132-90af-06c569c025e9}</Project>
-      <Name>Nile.POS</Name>
+      <Name>Nile.Data</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

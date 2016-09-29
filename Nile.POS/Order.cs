@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Nile.POS
+namespace Nile.Data
 {
     /// <summary>
     /// Represents a customer's order.
     /// </summary>
     public class Order
     {
+        List<LineItem> _lineItems = new List<LineItem>();
 
         /// <summary>
         /// The total price of all lineitems in the order.
@@ -38,11 +39,27 @@ namespace Nile.POS
         }
 
         /// <summary>
-        /// The list of LineItems in the order.
+        /// A readonly list of LineItems in the order.
         /// </summary>
-        public List<LineItem> LineItems
+        public IReadOnlyList<LineItem> LineItems
         {
-            get; set;
+            get
+            {
+                if (_lineItems == null)
+                {
+                    throw new NullReferenceException();
+                }
+                return _lineItems.AsReadOnly();
+            }
+        }
+
+
+        /// <summary>
+        /// Is true if the order is complete.
+        /// </summary>
+        public bool IsComplete
+        {
+            get; private set;
         }
 
         /// <summary>
@@ -50,8 +67,8 @@ namespace Nile.POS
         /// </summary>
         /// <param name="lineItems">Any number of LineItems for the order.</param>
         public Order(params LineItem[] lineItems) : this()
-        {            
-            LineItems.AddRange(lineItems);
+        {
+            _lineItems.AddRange(lineItems);
         }
 
         /// <summary>
@@ -60,7 +77,7 @@ namespace Nile.POS
         /// <param name="lineItems">A list of LineItems for the order </param>
         public Order(List<LineItem> lineItems) : this()
         {
-            LineItems = lineItems;
+            _lineItems = lineItems;
         }
 
         /// <summary>
@@ -69,7 +86,46 @@ namespace Nile.POS
         public Order()
         {
             OrderDate = DateTime.Now;
-            LineItems = new List<LineItem>();
         }
+
+
+
+        public void AddLineItem(LineItem l)
+        {
+            if (l == null)
+            {
+                throw new ArgumentNullException();
+            }
+            if (IsComplete)
+            {
+                throw new Exception("Cannot add to a completed order.");
+            }
+
+            foreach (LineItem _l in _lineItems)
+            {
+                if (_l.Product == l.Product)
+                {
+                    _l.Quantity += l.Quantity;
+                    return;
+                }
+            }
+
+            _lineItems.Add(l);
+        }
+
+        public void Complete()
+        {
+            if (IsComplete)
+            {
+                throw new Exception("Cannot complete a completed order.");
+            }
+            if (_lineItems.Count <= 0)
+            {
+                throw new Exception("Order must have at least one line item.");
+            }
+            IsComplete = true;
+        }
+
+
     }
 }

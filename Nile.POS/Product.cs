@@ -1,4 +1,4 @@
-﻿namespace Nile.POS
+﻿namespace Nile.Data
 {
     /// <summary>
     /// An object representing a product in the the Nile POS system.
@@ -6,6 +6,8 @@
     public class Product
     {
         private static int _lastID = 0;
+        string _name;
+        decimal _unitPrice;
 
         /// <summary>
         /// An object representing a product in the the Nile POS system.
@@ -34,7 +36,18 @@
         /// </summary>
         public string Name
         {
-            get; private set;
+            get
+            {
+                return _name ?? "";
+            }
+            set
+            {
+                if (value == null)
+                {
+                    throw new System.ArgumentNullException("Name");
+                }
+                _name = value;
+            }
         }
 
         /// <summary>
@@ -42,7 +55,18 @@
         /// </summary>
         public decimal UnitPrice
         {
-            get; private set;
+            get
+            {
+                return _unitPrice;
+            }
+            set
+            {
+                if (value <= 0)
+                {
+                    throw new System.ArgumentException("Unit Price must be greater than 0.");
+                }
+                _unitPrice = value;
+            }
         }
 
         /// <summary>
