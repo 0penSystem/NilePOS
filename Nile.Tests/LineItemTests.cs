@@ -31,6 +31,15 @@ namespace Nile.Tests
         }
 
         [TestMethod]
+        public void TotalPrice()
+        {
+            LineItem l = new LineItem(new Product("a", 5m, false), 10);
+
+            Assert.AreEqual(50m, l.TotalPrice);
+        }
+
+
+        [TestMethod]
         public void SetProduct()
         {
             LineItem l = new LineItem(new Product("a", 1m, false), 1);

@@ -18,7 +18,7 @@ namespace Nile.Data
             get
             {
                 decimal temp = 0;
-                if (LineItems?.Count > 0)
+                if (_lineItems?.Count > 0)
                 {
 
                     foreach (LineItem l in LineItems)
@@ -47,7 +47,11 @@ namespace Nile.Data
             {
                 if (_lineItems == null)
                 {
-                    throw new NullReferenceException();
+                    throw new Exception();
+                }
+                if (_lineItems.Count == 0)
+                {
+                    throw new Exception("List is empty!");
                 }
                 return _lineItems.AsReadOnly();
             }
@@ -61,25 +65,6 @@ namespace Nile.Data
         {
             get; private set;
         }
-
-        /// <summary>
-        /// Represents a customer's order.
-        /// </summary>
-        /// <param name="lineItems">Any number of LineItems for the order.</param>
-        public Order(params LineItem[] lineItems) : this()
-        {
-            _lineItems.AddRange(lineItems);
-        }
-
-        /// <summary>
-        /// Represents a customer's order.
-        /// </summary>
-        /// <param name="lineItems">A list of LineItems for the order </param>
-        public Order(List<LineItem> lineItems) : this()
-        {
-            _lineItems = lineItems;
-        }
-
         /// <summary>
         /// Represents a customer's order.
         /// </summary>

@@ -34,6 +34,41 @@ namespace Nile.Tests
         }
 
         [TestMethod]
+        public void TotalPrice()
+        {
+            Order o = new Order();
+            Product p1 = new Product("Product A", 1m, false);
+            Product p2 = new Product("Product B", 2m, false);
+            LineItem l1 = new LineItem(p1, 1);
+            LineItem l2 = new LineItem(p2, 1);
+            o.AddLineItem(l1);
+            o.AddLineItem(l2);
+
+            Assert.AreEqual(3, o.TotalPrice);
+
+        }
+
+        [TestMethod]
+        public void TotalPriceWhenEmptyIsZero()
+        {
+            Order o = new Order();
+
+            Assert.AreEqual(0, o.TotalPrice);
+
+        }
+
+
+        [TestMethod]
+
+        [ExpectedException(typeof(Exception))]
+        public void NullListThrowsException()
+        {
+            Order o = new Order();
+            var a = o.LineItems;
+        }
+
+
+        [TestMethod]
 
         [ExpectedException(typeof(Exception))]
         public void AddToCompleteOrderFails()
@@ -77,9 +112,6 @@ namespace Nile.Tests
         public void CompleteFailsWithNoLineItems()
         {
             Order o = new Order();
-            Product p = new Product("A Thing", 1, false);
-            //LineItem l = new LineItem(p, 1);
-            // o.AddLineItem(l);
             o.Complete();
         }
     }

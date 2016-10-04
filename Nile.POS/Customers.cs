@@ -29,13 +29,13 @@ namespace Nile.Data
             {
                 throw new System.ArgumentException("IDs must be greater than 0.");
             }
-            try
+            if (_customers.ContainsKey(customerID))
             {
                 _customers.Remove(customerID);
             }
-            catch (KeyNotFoundException)
+            else
             {
-                return;
+                throw new System.ArgumentException("ID not found.");
             }
 
         }
